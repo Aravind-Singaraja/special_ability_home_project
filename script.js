@@ -318,20 +318,19 @@
 // Mobile menu toggle
 // Mobile menu toggle
 // === Mobile Menu Toggle ===
-const menuToggle = document.getElementById('menu-toggle');
-const navLinks = document.getElementById('nav-links');
-menuToggle.addEventListener('click', () => {
-  menuToggle.classList.toggle('active');
-  navLinks.classList.toggle('active');
+// === Loader ===
+window.addEventListener("load", () => {
+  const loader = document.getElementById("page-loader");
+  setTimeout(() => loader.classList.add("hidden"), 500);
 });
 
 // === Section Fade on Scroll ===
-const sections = document.querySelectorAll('.fade-section');
+const sections = document.querySelectorAll(".fade-section");
 const observer = new IntersectionObserver(
   entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
+        entry.target.classList.add("visible");
       }
     });
   },
@@ -340,44 +339,28 @@ const observer = new IntersectionObserver(
 sections.forEach(sec => observer.observe(sec));
 
 // === Hero Slideshow ===
-const heroSlides = document.querySelectorAll('.hero-slide');
+const heroSlides = document.querySelectorAll(".hero-slide");
 let heroIndex = 0;
 setInterval(() => {
-  heroSlides[heroIndex].classList.remove('active');
+  heroSlides[heroIndex].classList.remove("active");
   heroIndex = (heroIndex + 1) % heroSlides.length;
-  heroSlides[heroIndex].classList.add('active');
+  heroSlides[heroIndex].classList.add("active");
 }, 4000);
 
-// === Coach Slideshow ===
-const coachCards = document.querySelectorAll('.coach-card');
-coachCards.forEach(card => {
-  const slides = card.querySelectorAll('.coach-slide');
-  let index = 0;
-  setInterval(() => {
-    slides[index].classList.remove('active');
-    index = (index + 1) % slides.length;
-    slides[index].classList.add('active');
-  }, 4000);
-});
+// === Overlay Fade Transition for Nav Clicks ===
+const overlay = document.getElementById("page-overlay");
+const navLinks = document.querySelectorAll(".navbar-nav a");
 
-// === Fade Overlay Transition for Menu Clicks ===
-const overlay = document.getElementById('page-overlay');
-const links = document.querySelectorAll('.nav-links a');
-
-links.forEach(link => {
-  link.addEventListener('click', e => {
+navLinks.forEach(link => {
+  link.addEventListener("click", e => {
     e.preventDefault();
-    const targetId = link.getAttribute('href');
-    overlay.classList.add('active');
+    const targetId = link.getAttribute("href");
+    overlay.classList.add("active");
 
     setTimeout(() => {
-      document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
-      overlay.classList.remove('active');
-    }, 400); // fade duration
-
-    // close menu if open
-    navLinks.classList.remove('active');
-    menuToggle.classList.remove('active');
+      document.querySelector(targetId).scrollIntoView({ behavior: "smooth" });
+      overlay.classList.remove("active");
+    }, 400);
   });
 });
 
